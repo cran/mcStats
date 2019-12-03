@@ -23,7 +23,3 @@ density of normal distribution
 \description{
 compute density of normal distribution while allowing for more arguments which are ignored
 }
-\examples{
-mcDNorm(x = 0)
-
-}

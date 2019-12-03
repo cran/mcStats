@@ -13,7 +13,7 @@ Proportion Test
 showProp.Test(3, 10)
 ```
 
-![](man/figures/unnamed-chunk-2-1.png)
+![](man/mcStats_files/figure-markdown_github/unnamed-chunk-2-1.png)
 
     ## 
     ##  Exact binomial test
@@ -39,7 +39,7 @@ x <- rnorm(10)
 showT.Test(x)
 ```
 
-![](man/figures/unnamed-chunk-3-1.png)
+![](man/mcStats_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
     ## 
     ##  One Sample t-test
@@ -53,13 +53,13 @@ showT.Test(x)
     ##  mean of x 
     ## -0.2830035
 
-Test with nullhypothesis mean = 0.5.
+Test with null hypothesis mean = 0.5.
 
 ``` r
 showT.Test(x, mu = 0.5)
 ```
 
-![](man/figures/unnamed-chunk-4-1.png)
+![](man/mcStats_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
     ## 
     ##  One Sample t-test
@@ -89,7 +89,7 @@ x <- matrix(runif(9,5,100), ncol = 3, dimnames = list(c("Yes1", "No1", "Maybe 1"
 mosaicplot(x)
 ```
 
-![](man/figures/unnamed-chunk-5-1.png)
+![](man/mcStats_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 ### Distribution
 
@@ -97,7 +97,7 @@ mosaicplot(x)
 showChiSq.Test(x)
 ```
 
-![](man/figures/unnamed-chunk-6-1.png)
+![](man/mcStats_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
     ## 
     ##  Pearson's Chi-squared test
@@ -117,7 +117,7 @@ Performance <-
 showMcNemarTest(Performance)
 ```
 
-![](man/figures/unnamed-chunk-7-1.png)
+![](man/mcStats_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
     ## 
     ##  McNemar's Chi-squared test with continuity correction
@@ -132,7 +132,7 @@ Bootstrap
 bootstrap(mean, x, 0, 100)
 ```
 
-![](man/figures/unnamed-chunk-8-1.png)
+![](man/mcStats_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
     ##   [1] 54.90774 51.07035 62.03353 59.45124 42.65071 53.54602 58.19805
     ##   [8] 49.23022 42.80682 48.37725 55.93226 43.66260 38.76233 37.54761
@@ -157,7 +157,7 @@ ANOVA
 showANOVA(yield ~  N + P + K, npk)
 ```
 
-![](man/figures/unnamed-chunk-9-1.png)
+![](man/mcStats_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
 OLS
 ===
@@ -166,4 +166,4 @@ OLS
 showOLS(mpg ~ cyl + disp, mtcars)
 ```
 
-![](man/figures/unnamed-chunk-10-1.png)
+![](man/mcStats_files/figure-markdown_github/unnamed-chunk-10-1.png)

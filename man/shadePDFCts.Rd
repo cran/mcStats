@@ -21,7 +21,3 @@ density if outside of extreme event region
 \description{
 Returns density with extreme event region having NAs
 }
-\examples{
-shadePDFCts(x = 1:5, dnorm, 1.96)
-
-}

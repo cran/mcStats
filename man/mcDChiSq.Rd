@@ -19,7 +19,3 @@ density of given Chi-Square dist. at x
 \description{
 Density of Chi-Square distribution
 }
-\examples{
-mcDChiSq(4, 2)
-
-}

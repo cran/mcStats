@@ -21,12 +21,3 @@ results of call to \link[stats]{mcnemar.test}
 \description{
 relevant parameters are passed to \link[stats]{mcnemar.test}
 }
-\examples{
-Performance <-
-matrix(c(794, 86, 150, 570),
-    nrow = 2,
-    dimnames = list("1st Survey" = c("Approve", "Disapprove"),
-                     "2nd Survey" = c("Approve", "Disapprove")))
-showMcNemarTest(Performance)
-
-}

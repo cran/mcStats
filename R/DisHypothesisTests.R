@@ -8,8 +8,8 @@
 #' @export
 #'
 #' @examples
-#' labelDisPDF(0:10, 3, 5)
-labelDisPDF <- function(x, obsVal, expVal){
+#' labelPDFDis(0:10, 3, 5)
+labelPDFDis <- function(x, obsVal, expVal){
   y <- rep(x = "More Extreme Event", length(x))
   y[abs(x - expVal) < abs(obsVal - expVal)] <- "Less Extreme Event"
   y[x == obsVal] <- "Observed Event"
@@ -34,7 +34,7 @@ labelDisPDF <- function(x, obsVal, expVal){
 showXtremeEventsDis <- function(testID, obsVal, expVal, xVals, probFun, ...){
   fakeData <- data.frame(x = xVals,
                          Probability = probFun(xVals, ...),
-                         Event = labelDisPDF(xVals,
+                         Event = labelPDFDis(xVals,
                                              obsVal,
                                              expVal))
 
@@ -42,7 +42,7 @@ showXtremeEventsDis <- function(testID, obsVal, expVal, xVals, probFun, ...){
     geom_bar(mapping = aes_(fill = ~ Event),
              stat = "identity",
              color = "black") +
-    theme_bw() +
+    theme_classic() +
     scale_fill_manual(values = c("Observed Event" = "#E69F00",
                                  "Equally Extreme Event" = "#000000",
                                  "More Extreme Event" = "#56B4E9",
@@ -78,7 +78,6 @@ showProp.Test <- function(x, n, p = 0.5){
                       prob = p)
   return(testResult)
 }
-
 
 
 

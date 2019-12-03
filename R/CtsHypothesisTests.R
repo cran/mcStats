@@ -1,14 +1,22 @@
+#' @title Print "hello world!"
+#' @description print "hello world!"
+#' @examples
+#' hello()
+#' @export
+
+hello <- function(){
+  print("hello world!")
+}
+
 #' @title dnorm but with more arguments
 #' @description compute density of normal distribution while allowing for more arguments which are ignored
+#' @importFrom stats dnorm
 #' @param x x value
 #' @param mean mean of normal distribution
 #' @param sd std. dev. of noraml distribution
 #' @param log logical; if TRUE probabilities are given as log(p). See stats::dnorm
 #' @param ... extra parameters which are ignored
 #' @export
-#' @examples
-#' mcDNorm(x = 0)
-#'
 #' @return density of normal distribution
 mcDNorm <- function(x, mean = 0, sd = 1, log = FALSE, ...){
   return(dnorm(x, mean, sd, log))
@@ -20,11 +28,9 @@ mcDNorm <- function(x, mean = 0, sd = 1, log = FALSE, ...){
 #' @param x x value
 #' @param degFree degrees of freedom
 #' @param ... optional additional parameters which are ignored
-#' @export
-#' @return density of given t-dist. at x
 #'
-#' @examples
-#' mcDT(0,1)
+#' @return density of given t-dist. at x
+#' @export
 #'
 mcDT <- function(x, degFree, ...){
   return(dt(x, df = degFree))
@@ -37,10 +43,9 @@ mcDT <- function(x, degFree, ...){
 #' @param degFree1 degrees of freedom 1
 #' @param degFree2 degrees of freedom 2
 #' @param ... optional additional parameters which are ignored
-#' @export
+#'
 #' @return density of given F-dist. at x
-#' @examples
-#' mcDF(1,5,5)
+#' @export
 #'
 mcDF <- function(x, degFree1, degFree2, ...){
   return(df(x, df1 = degFree1, df2 = degFree2))
@@ -52,11 +57,9 @@ mcDF <- function(x, degFree1, degFree2, ...){
 #' @param x x value
 #' @param degFree degrees of freedom
 #' @param ... optional additional parameters which are ignored
-#' @export
-#' @return density of given Chi-Square dist. at x
 #'
-#' @examples
-#' mcDChiSq(4, 2)
+#' @return density of given Chi-Square dist. at x
+#' @export
 #'
 mcDChiSq <- function(x, degFree, ...){
   return(dchisq(x, df = degFree))
@@ -71,10 +74,6 @@ mcDChiSq <- function(x, degFree, ...){
 #' @param ... optional parameters passed to density function
 #' @return density if outside of extreme event region
 #' @export
-#'
-#' @examples
-#' shadePDFCts(x = 1:5, dnorm, 1.96)
-#'
 shadePDFCts <- function(x, fun, testStat, ...){
   y <- fun(x,...)
   y[abs(x) < abs(testStat)] <- NA
@@ -122,22 +121,23 @@ showXtremeEventsCts <- function(testID, testStat, densFun, degFree = NULL, degFr
                               degFree1 = degFree1,
                               degFree2 = degFree2)) +
     stat_function(data = data.frame(x = xlims),
-                  mapping = aes_(x = ~ x),
+                  mapping = aes_(x = ~ x, fill = c("More Extreme Events", "Less Extreme Events")),
                   fun = shadePDFCts,
                   geom = "area",
-                  fill = "#56B4E9",
                   args = list(fun = densFun,
                               testStat = testStat,
                               degFree = degFree,
                               degFree1 = degFree1,
                               degFree2 = degFree2),
                   n = 500) +
+    scale_fill_manual("Events", values = c("#FFFFFF", "#56B4E9")) +
+
     geom_vline(aes_(xintercept = ~ x,
                     color = ~ Statistic),
                size = 3) +
     xlim(xlims) +
     scale_color_colorblind() +
-    theme_bw() +
+    theme_classic() +
     labs(x = "Test Statistic",
          y = "Density",
          title = paste("Result of", testID))
@@ -186,7 +186,8 @@ showT.Test <- function(group1, group2 = NULL, mu = 0, paired = FALSE, verbose = 
 #' @param x must be a matrix with each row and column labelled
 #' @import magrittr
 #' @importFrom tidyr expand
-#' @importFrom  dplyr right_join filter_
+#' @importFrom  dplyr right_join
+#' @importFrom rlang .data
 #' @return mosaic plot showing observed proportions, colored by residuals from chi-sq. test
 #' @export
 #' @examples
@@ -234,10 +235,9 @@ showMosaicPlot <- function(x){
 
   a <- chisq.test(x)
 
-  a$residuals
 
 
-  resData <- a$residuals
+  resData <- a$stdres
   resData <- resData %>%
     as.table() %>%
     as.data.frame()
@@ -251,12 +251,12 @@ showMosaicPlot <- function(x){
   resData <- right_join(df, resData)
 
   labelDF1 <- resData %>%
-    filter_(~Var2 == colnames(x)[1])
+    dplyr::filter(.data$Var2 == colnames(x)[1])
 
   labelDF1$yMean <- (labelDF1$yStart + labelDF1$yEnd)/2
 
   labelDF2 <- resData %>%
-    filter_(~Var1 == rownames(x)[1])
+    dplyr::filter(.data$Var1 == rownames(x)[1])
 
   labelDF2$xMean <- (labelDF2$xStart + labelDF2$xEnd)/2
 
@@ -272,16 +272,18 @@ showMosaicPlot <- function(x){
               mapping = aes_(y = ~yMean,
                             label = ~Var1),
               x = -.05,
-              angle = 90) +
+              angle = 45) +
     geom_text(labelDF2,
               mapping = aes_(x = ~xMean,
                             label = ~Var2),
-              y = 1.05) +
-    theme_bw() +
+              y = 1.05,
+              angle = 45) +
+    theme_classic() +
     lims(x = c(-0.05, 1.05), y = c(-0.05, 1.05)) +
     labs(title = "Mosaic Plot: Residuals of Chi-Square Test",
          x = "Proportion",
-         y = "Proportion")
+         y = "Proportion") +
+    scale_fill_gradient2(low = "red", high = "blue", mid = "white", midpoint = 0, na.value = "gray", limits = c(-15,15))
   print(plt)
   return(plt)
 }
@@ -390,6 +392,7 @@ showOLS <- function(formula, data, verbose = 1){
     do.call(grid.arrange, c(pltList, ncol = floor(sqrt(nInputs))))
 
   }
+  return(modelResults)
 }
 
 #' @title Visualize results of McNemar's Test
@@ -402,14 +405,6 @@ showOLS <- function(formula, data, verbose = 1){
 #'
 #' @return results of call to \link[stats]{mcnemar.test}
 #' @export
-#'
-#' @examples
-#' Performance <-
-#' matrix(c(794, 86, 150, 570),
-#'     nrow = 2,
-#'     dimnames = list("1st Survey" = c("Approve", "Disapprove"),
-#'                      "2nd Survey" = c("Approve", "Disapprove")))
-#' showMcNemarTest(Performance)
 #'
 showMcNemarTest <- function(x, y = NULL, correct = TRUE, verbose = 1){
   testResult <- mcnemar.test(x = x, y = y, correct = correct)

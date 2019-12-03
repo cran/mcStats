@@ -21,7 +21,3 @@ density of given F-dist. at x
 \description{
 Density of F-distribution
 }
-\examples{
-mcDF(1,5,5)
-
-}

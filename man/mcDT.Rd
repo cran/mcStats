@@ -19,7 +19,3 @@ density of given t-dist. at x
 \description{
 Density of t-distribution
 }
-\examples{
-mcDT(0,1)
-
-}
