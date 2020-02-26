@@ -120,10 +120,9 @@ showXtremeEventsCts <- function(testID, testStat, densFun, degFree = NULL, degFr
                   args = list(degFree = degFree,
                               degFree1 = degFree1,
                               degFree2 = degFree2)) +
-    stat_function(data = data.frame(x = xlims),
-                  mapping = aes_(x = ~ x, fill = c("More Extreme Events", "Less Extreme Events")),
-                  fun = shadePDFCts,
+    stat_function(fun = shadePDFCts,
                   geom = "area",
+                  fill = "#56B4E9",
                   args = list(fun = densFun,
                               testStat = testStat,
                               degFree = degFree,
@@ -131,7 +130,6 @@ showXtremeEventsCts <- function(testID, testStat, densFun, degFree = NULL, degFr
                               degFree2 = degFree2),
                   n = 500) +
     scale_fill_manual("Events", values = c("#FFFFFF", "#56B4E9")) +
-
     geom_vline(aes_(xintercept = ~ x,
                     color = ~ Statistic),
                size = 3) +

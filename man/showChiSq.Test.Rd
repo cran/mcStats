@@ -4,8 +4,14 @@
 \alias{showChiSq.Test}
 \title{Show Chi-Square Test}
 \usage{
-showChiSq.Test(x, y = NULL, p = rep(1/length(x), length(x)),
-  simulate.p.value = FALSE, nreps = 2000, verbose = 1)
+showChiSq.Test(
+  x,
+  y = NULL,
+  p = rep(1/length(x), length(x)),
+  simulate.p.value = FALSE,
+  nreps = 2000,
+  verbose = 1
+)
 }
 \arguments{
 \item{x}{a numeric vector or matrix. x and can also be factors}

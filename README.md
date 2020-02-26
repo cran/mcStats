@@ -1,6 +1,12 @@
 mcStats
-================
 
+<!-- badges: start -->
+![CRAN status](https://www.r-pkg.org/badges/version-ago/mcStats)
+![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/mcStats)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+<!-- badges: end -->
+
+================
 This package is used to visualize distributions in relation to traditional hypothesis tests. We have found that students are capable of interpreting p-values, but often struggle with understanding how they relate to the underlying distribution. The stats package performs statistical tests while we visualize the results.
 
 Hypothesis Tests

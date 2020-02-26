@@ -4,8 +4,17 @@
 \alias{showXtremeEventsCts}
 \title{Highlight extreme events}
 \usage{
-showXtremeEventsCts(testID, testStat, densFun, degFree = NULL,
-  degFree1 = NULL, degFree2 = NULL, xlims, verbose = 1, ...)
+showXtremeEventsCts(
+  testID,
+  testStat,
+  densFun,
+  degFree = NULL,
+  degFree1 = NULL,
+  degFree2 = NULL,
+  xlims,
+  verbose = 1,
+  ...
+)
 }
 \arguments{
 \item{testID}{name of hypothesis test}
